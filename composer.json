@@ -1,0 +1,22 @@
+{
+    "name": "randrei98/josephp",
+    "description": "JSON Object Signing and Encryption",
+    "type": "library",
+    "require": {
+        "randrei98/ecdsaphp": "1.0.0"
+        "php": ">=7.2"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "JOSE\\": "src/JOSE"
+        }
+    },
+    "authors": [
+        {
+            "name": "AndreiR98",
+            "email": "rotaru.andrei98@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
