@@ -3,7 +3,8 @@
     "description": "JSON Object Signing and Encryption",
     "type": "library",
     "require": {
-        "randrei98/ecdsaphp": "1.0.0"
+        "randrei98/ecdsaphp": "1.0.0",
+        "2tvenom/cborencode": "^1.0",
         "php": ">=7.2"
     },
     "license": "MIT",
