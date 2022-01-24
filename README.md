@@ -63,7 +63,7 @@ $encoded = $message->encode();
 var_dump($encoded);
 ```
 
-## Decoing and Signature verification
+## Decoding and Signature verification
 ```php
 use \ECDSA\Curves;
 use \ECDSA\Algorithms;
