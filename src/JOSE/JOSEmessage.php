@@ -24,6 +24,18 @@ Class JOSEmessage{
 		$this->payload = $payload;
 	}
 
+	public function payload(){
+		return CBOREncoder::decode($this->payload);
+	}
+
+	public function phdr(){
+		return $this->phdr;
+	}
+
+	public function uhdr(){
+		return $this->uhdr;
+	}
+
 	public function encoded(){
 		$message = $this->encode();
 
