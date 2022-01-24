@@ -15,10 +15,6 @@ Class Sign1Message extends JOSEmessage{
 
     public $payload;
 
-    public $algorithm;
-
-    public $curve;
-
 	public function __construct($phdr='', $uhdr='', $payload){
 		$this->phdr = $phdr;
 		$this->uhdr = $uhdr;
@@ -60,17 +56,33 @@ Class Sign1Message extends JOSEmessage{
 		$KID = Math::unhexlify($this->KID);
 
 		if($this->signature == ''){
-			return [$headers, $KID, $payload];
+			return ['Sign1Message', $headers, $KID, $payload];
 		}else{
 
 			$signature = \CBOR\CBOREncoder::encode($this->signature);
 
-			return [$headers, $KID, $payload, $signature];
+			return ['Sign1Message', $headers, $KID, $payload, $signature];
 		}
 	}
 
-	public function decode(){
-		return $this->phdr;
+	public function Verify_Signature(){
+		$signature = CBOREncoder::decode($this->signature);
+
+		$payload = CBOREncoder::decode($this->payload);
+
+		if($this->phdr == ''){
+			$header = '';
+
+			$structure = json_encode($payload);
+		}else{
+			$header = $this->phdr;
+
+			$structure = json_encode([$header, $payload]);
+		}
+
+		return ECDSA::Verify($structure, $signature, $this->key);
 	}
+
+	
 }
 ?>

@@ -55,5 +55,5 @@ $test->algorithm = $algorithm;
 $test->encode();
 
 
-echo base64_encode($test->encode());
+echo var_dump($test->encode());
 

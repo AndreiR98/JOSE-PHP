@@ -14,15 +14,17 @@ class Keys{
 
 	public $KID;
 
-	public function __construct($pem='', $KID='', $curve){
-		try{
+	public $curve;
+
+	public function __construct($pem='', $KID='', $curve, $algorithm){
+		if(openssl_pkey_get_private($pem)){
 			$res = openssl_pkey_get_private($pem);
-		    $key_res = openssl_pkey_get_details($res)['ec'];
+			$key_res = openssl_pkey_get_details($res)['ec'];
             
             $this->d = $key_res['d'];
 			$this->x = $key_res['x'];
 			$this->y = $key_res['y'];
-		}catch(Exception $e){
+		}else{
 			$res = openssl_pkey_get_public($pem);
 			$key_res = openssl_pkey_get_details($res)['ec'];
 
@@ -32,6 +34,8 @@ class Keys{
 		}
 
 		$this->KID = $KID;
+		$this->curve = $curve;
+		$this->algorithm = $algorithm;
 	}
 }
 ?>
