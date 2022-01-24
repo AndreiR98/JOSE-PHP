@@ -36,7 +36,7 @@ Class JOSEmessage{
 		return $this->uhdr;
 	}
 
-	public function encoded(){
+	public function __toString(){
 		$message = $this->encode();
 
 		if($this->signature == ''){

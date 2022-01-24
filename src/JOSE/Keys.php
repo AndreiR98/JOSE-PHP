@@ -28,7 +28,7 @@ class Keys{
 			$res = openssl_pkey_get_public($pem);
 			$key_res = openssl_pkey_get_details($res)['ec'];
 
-            $this->d = 1;
+            $this->d = '';
 			$this->x = $key_res['x'];
 			$this->y = $key_res['y'];
 		}
@@ -36,6 +36,10 @@ class Keys{
 		$this->KID = $KID;
 		$this->curve = $curve;
 		$this->algorithm = $algorithm;
+	}
+
+	public function __toString(){
+		return "'".get_class($this)."':{'".$this->KID."', '".$this->curve->name."', '".$this->algorithm->name."', '".$this->d."', '".$this->x."', '".$this->y."'}";
 	}
 }
 ?>
