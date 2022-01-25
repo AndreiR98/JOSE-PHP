@@ -15,6 +15,10 @@ Class Sign1Message extends JOSEmessage{
 
     public $payload;
 
+    public $key;
+
+    public $signature;
+
 	public function __construct($phdr='', $uhdr='', $payload){
 		$this->phdr = $phdr;
 		$this->uhdr = $uhdr;
@@ -32,13 +36,13 @@ Class Sign1Message extends JOSEmessage{
 			$structure = json_encode([$header, $this->payload]);
 		}
 
-		$curve = $this->curve;
-		$algorithm = $this->algorithm;
+		$curve = $this->key->curve;
+		$algorithm = $this->key->algorithm;
 
 		$computedSignature = '';
 
 		try{
-			$computedSignature = ECDSA::Sign($structure, $curve, $algorithm, $this->key->d);
+			$computedSignature = ECDSA::Sign($structure, $this->key);
 		}catch(Exception $e){
 			die('Error occured while signing!');
 		}
@@ -53,7 +57,7 @@ Class Sign1Message extends JOSEmessage{
 
 		$payload = \CBOR\CBOREncoder::encode($this->payload);
 
-		$KID = Math::unhexlify($this->KID);
+		$KID = Math::unhexlify($this->key->KID);
 
 		if($this->signature == ''){
 			return ['Sign1Message', $headers, $KID, $payload];
@@ -82,6 +86,8 @@ Class Sign1Message extends JOSEmessage{
 
 		return ECDSA::Verify($structure, $signature, $this->key);
 	}
+
+	
 
 	
 }

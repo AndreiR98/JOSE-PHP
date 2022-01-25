@@ -20,7 +20,7 @@ wijqvVShK79hiqea+r8p0vP5g6mtaZARrA==
 
 $JOSE_Key = new Keys($pem, 'd51dabbd92ce6670', $curve, $algorithm);
 
-echo $JOSE_Key;
+var_dump(json_encode($JOSE_Key));
 
 
 
