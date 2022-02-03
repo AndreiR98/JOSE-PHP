@@ -43,14 +43,14 @@ Class JOSEmessage{
 		}
 	}
 
-	public function decode($encoded){
+	public static function decode($encoded){
 		$encoded = CBOREncoder::decode($encoded);
 		try{
 			if(isset($encoded[0])){
 				if($encoded[0] == 'Sign1Message'){
-					$message = new Sign1Message($encoded[1], $encoded[2], $encoded[3]);
+					$message = new Sign1Message($encoded[1][0], $encoded[1][0], $encoded[2]);
 
-					$message->signature = $encoded[4];
+					$message->signature = $encoded[3];
 				}
 			}
 			return $message;

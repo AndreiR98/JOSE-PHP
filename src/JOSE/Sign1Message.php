@@ -11,8 +11,6 @@ Class Sign1Message extends JOSEmessage{
 
     public $uhdr;
 
-    public $KID;
-
     public $payload;
 
     public $key;
@@ -53,19 +51,19 @@ Class Sign1Message extends JOSEmessage{
 	public function encode(){
 		$this->Sign();
 
-		$headers = $this->phdr;
+		$headers = [$this->phdr, $this->uhdr];
 
 		$payload = \CBOR\CBOREncoder::encode($this->payload);
 
 		$KID = Math::unhexlify($this->key->KID);
 
 		if($this->signature == ''){
-			return ['Sign1Message', $headers, $KID, $payload];
+			return ['Sign1Message', $headers, $payload];
 		}else{
 
 			$signature = \CBOR\CBOREncoder::encode($this->signature);
 
-			return ['Sign1Message', $headers, $KID, $payload, $signature];
+			return ['Sign1Message', $headers, $payload, $signature];
 		}
 	}
 
