@@ -64,12 +64,9 @@ var_dump($encoded);
 ```
 
 ## Decoding and Signature verification
+
 ```php
-use \ECDSA\Curves;
-use \ECDSA\Algorithms;
-use \JOSE\JOSEmessage;
-use \JOSE\Sign1Message;
-use \JOSE\Keys;
+use ECDSA\Algorithms;use JOSE\JOSEmessageTraits;use JOSE\Keys;
 
 $curve = Curves::NIST256P();
 $algo = Algorithms::ES256();
@@ -78,7 +75,7 @@ $publicKey_pem = 'PUBLIC EC KEY HERE';
 
 $key = $key = new Keys($pem, '', $curve, $algo);
 
-$decoded = JOSEmessage::decode($encoded);
+$decoded = JOSEmessageTraits::decode($encoded);
 $decoded->key = $key;
 
 var_dump($decoded->Verify_Signature());
