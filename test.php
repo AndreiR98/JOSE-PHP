@@ -83,16 +83,6 @@ $message->sign();
 //
 $encoded = new \JOSE\JOSEMessage($message->encode());
 
-/**
- * TODO:
- * -add JSONMessage as class
- * -add JSONMessageTraits as traits
- * -use JSONMessage wehn reading a new message, decode de message and retrieve the type, map the values to the message
- * -JSONMessage can be assign key
- * -Implement same logic as message type for curves and algos
-*/
-
-
 $publicKeyPem = '-----BEGIN PUBLIC KEY-----
 MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEtEok4xNWhpu60cIWJlsibAkr9O3l
 n3UIO8AGknGJWOfHhYQ5sDPidYT7j7VIxazOJp3By8fmvmZkRIsFVVXy0w==
@@ -110,7 +100,7 @@ $encoded->setKey($publicKey);
 
 $encoded->decode();
 
-print_r($encoded->verifySign());
+print_r($encoded->getHeader()->getProtected()->getKID());
 
 
 
